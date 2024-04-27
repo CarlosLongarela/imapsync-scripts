@@ -1,0 +1,18 @@
+# Each line contains at least 6 columns
+# The separator is the character semi-colon ";"
+# The columns are the values for the parameters
+# --host1 --user1 --password1 --host2 --user2 --password2
+#
+# A extra column can be used to pass some extra parameters but the script reading
+# this file have to be able to get them.
+#
+# Don't forget the last semicolon.
+# Lines starting with a # are usually comments and ignored
+# Blank lines are ignored as well
+
+# Cloned from original file https://imapsync.lamiral.info/examples/file.txt
+
+# Now the data example
+mx.correo.origen;usuario.origen1@dominio.com;clave.usuario.origen1;mx.correo.destino;usuario.origen1@dominio.com;clave.usuario.origen1;;
+mx.correo.origen;usuario.origen2@dominio.com;clave.usuario.origen2;mx.correo.destino;usuario.origen2@dominio.com;clave.usuario.origen2;;
+mx.correo.origen;usuario.origen3@dominio.com;clave.usuario.origen3;mx.correo.destino;usuario.origen3@dominio.com;clave.usuario.origen3;;

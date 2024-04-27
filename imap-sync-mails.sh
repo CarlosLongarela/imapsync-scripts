@@ -43,6 +43,21 @@
 
 # Cloned by original file https://imapsync.lamiral.info/examples/sync_loop_unix.sh
 
+if [ -z "$1" ]; then
+    # read script parameter file text
+    read -p "Enter the file name with mails: " file_name
+else
+    file_name=$1
+fi
+
+echo "The file name is: $file_name"
+
+# Check if the file exists
+if [ ! -f $file_name ]; then
+    echo "File not found!"
+    exit 1
+fi
+
 echo Looping on accounts credentials found in imap-mails.txt
 echo
 line_counter=0
@@ -52,15 +67,15 @@ line_counter=0
     do
         line_counter=`expr 1 + $line_counter`
         { echo "$h1" | tr -d '\r' | egrep '^#|^ *$' ; } > /dev/null && continue # this skip commented lines in imap-mails.txt
-        echo "==== Starting imapsync with --host1 $h1 --user1 $u1 --host2 $h2 --user2 $u2 $extra $@ ===="
+        echo "==== Starting imapsync with --host1 $h1 --user1 $u1 --host2 $h2 --user2 $u2 $extra ===="
         if imapsync --host1 "$h1" --user1 "$u1" --password1 "$p1" \
-                    --host2 "$h2" --user2 "$u2" --password2 "$p2" $extra "$@"
+                    --host2 "$h2" --user2 "$u2" --password2 "$p2" $extra
         then
                 echo "Success sync for line $line_counter "
         else
                 echo "$h1;$u1;$p1;$h2;$u2;$p2;$extra;" | tee -a mail_sync_errors.txt
         fi
-        echo "==== Ended imapsync with --host1 $h1 --user1 $u1 --host2 $h2 --user2 $u2 $extra $@ ===="
+        echo "==== Ended imapsync with --host1 $h1 --user1 $u1 --host2 $h2 --user2 $u2 $extra ===="
         echo
     done
-} < imap-mails.txt
+} < $file_name
